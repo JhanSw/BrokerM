@@ -11,8 +11,8 @@ port = 1883
 topic = "python/mqtt"
 # generate client ID with pub prefix randomly
 client_id = f'python-mqtt-{random.randint(0, 1000)}'
-# username = 'emqx'
-# password = 'public'
+username = 'emqx'
+password = 'public'
 
 def connect_mqtt():
     def on_connect(client, userdata, flags, rc):
@@ -32,7 +32,7 @@ def publish(client):
     msg_count = 0
     while True:
         time.sleep(1)
-        msg = f"messages: {msg_count}"
+        msg = f"Hola soy Jhan: {msg_count}"
         result = client.publish(topic, msg)
         # result: [0, 1]
         status = result[0]

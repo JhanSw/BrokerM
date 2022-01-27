@@ -4,14 +4,16 @@ import random
 
 from paho.mqtt import client as mqtt_client
 
+import os
+
 
 broker = 'broker.emqx.io'
 port = 1883
 topic = "python/mqtt"
 # generate client ID with pub prefix randomly
 client_id = f'python-mqtt-{random.randint(0, 100)}'
-# username = 'emqx'
-# password = 'public'
+username = 'emqx'
+password = 'public'
 
 
 def connect_mqtt() -> mqtt_client:
@@ -30,7 +32,9 @@ def connect_mqtt() -> mqtt_client:
 
 def subscribe(client: mqtt_client):
     def on_message(client, userdata, msg):
-        print(f"Received `{msg.payload.decode()}` from `{msg.topic}` topic")
+        file = open("C:/Users/CENTIC/Escritorio/BrokerJSW/hola.txt", "a")
+        file.write("Hola, estoy recibiendo un mensaje " + msg.payload.decode() + os.linesep)
+        file.close()
 
     client.subscribe(topic)
     client.on_message = on_message
